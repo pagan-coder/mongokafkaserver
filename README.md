@@ -2,6 +2,8 @@
 
 A simple server applications that sends received JSON documents both to MongoDB and Kafka topic in real-time.
 
-Run:
+## Usage
 
-  python mongokafkaserver.py
+```
+python mongokafkaserver.py
+```
