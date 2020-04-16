@@ -1,0 +1,3 @@
+[submodule "rattlepy"]
+	path = rattlepy
+	url = https://github.com/PremyslLuaCerny/RattlePy
