@@ -1,4 +1,5 @@
 import aiokafka
+import configparser
 import motor.motor_asyncio
 import pymongo
 import time
@@ -13,9 +14,12 @@ class MyServerApplication(rattlepy.RattlePyApplication):
 	def __init__(self):
 		super().__init__()
 
+		cfg = configparser.ConfigParser()
+		cfg.read('./production-site.conf')
+
 		# Initialize MongoDBClient
 		self.MongoDBClient = motor.motor_asyncio.AsyncIOMotorClient(
-			host="mongodb://192.168.99.100:27017",  # replace with your custom host
+			host=cfg.get('mongodb', 'url'),
 			port=27017,
 			driver=pymongo.driver_info.DriverInfo(name="rattlepy.MongoDBClient", platform="rattlepy"),
 			io_loop=self.Loop
@@ -23,7 +27,7 @@ class MyServerApplication(rattlepy.RattlePyApplication):
 
 		# Initialize KafkaProducer
 		self.KafkaProducer = aiokafka.AIOKafkaProducer(
-			bootstrap_servers="192.168.99.100:9092",  # replace with your custom host
+			bootstrap_servers=cfg.get('kafka', 'url'),
 			loop=self.Loop
 		)
 
